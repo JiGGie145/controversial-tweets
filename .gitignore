@@ -21,3 +21,6 @@ venv.bak/
 # Spyder project settings
 .spyderproject
 .spyproject
+
+# models word embedding
+model/
