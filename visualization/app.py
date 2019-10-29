@@ -9,10 +9,11 @@ ROOT_PICKLE = '../pickle/'
 
 @app.route('/')
 def index():
-    return "Mostrar pickles"
+    pickles = os.listdir(ROOT_PICKLE)
+    return render_template('index.html', pickles=pickles)
 
-@app.route('/visualization/<pickle>')
-def visualization(pickle):
-    with open(os.path.join(ROOT_PICKLE, pickle), 'rb') as fd:
-        json = pickle.load(fd)
-    return render_template('visualization.html', json=json)
+@app.route('/visualization/<pkl>')
+def visualization(pkl):
+    with open(os.path.join(ROOT_PICKLE, pkl), 'rb') as fd:
+        post = pickle.load(fd)
+    return render_template('visualization.html', post=post)

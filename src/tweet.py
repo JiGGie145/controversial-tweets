@@ -2,14 +2,26 @@ from collections import defaultdict
 from nltk.tokenize import TweetTokenizer
 
 
-class PostNew:
+class Tweet:
+
+    # See
+    # https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object
 
     def __init__(self, **kwargs):
         self.replies = []
+        self.id_str = kwargs.get('id_str', None)
         self.full_text = kwargs.get('full_text', None)
+        self.reply_count = kwargs.get('reply_count', 0)
         self.created_at = kwargs.get('created_at', None)
-        self.reply_count = kwargs.get('reply_count', None)
+        self.display_text_range = kwargs.get('display_text_range', None)
         self.conversation_id_str = kwargs.get('conversation_id_str', None)
+
+        self.get_text()
+
+    def get_text(self):
+        self.full_text = self.full_text[self.display_text_range[0]:]
+
+class PostNew(Tweet):
 
     def get_threads(self):
         threads = defaultdict(list)
@@ -29,19 +41,15 @@ class PostNew:
         return [reply for reply in self.replies if reply.stance == 'attack']
 
 
-class Tweet:
+class Reply(Tweet):
 
     tknzr = TweetTokenizer()
 
     def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.tokens = None
         self.stance = None
-        self.text = kwargs.get('text', None)
-        self.id_str = kwargs.get('id_str', None)
-        self.reply_count = kwargs.get('reply_count', 0)
-        self.created_at = kwargs.get('created_at', None)
         self.screen_name = kwargs.get('screen_name', None)
-        self.conversation_id_str = kwargs.get('conversation_id_str', None)
         self.in_reply_to_status_id_str = kwargs.get('in_reply_to_status_id_str', None)
 
         self.tokenizer()
@@ -51,7 +59,7 @@ class Tweet:
         self.stance = stance
 
     def tokenizer(self):
-        self.tokens = self.tknzr.tokenize(self.text)
+        self.tokens = self.tknzr.tokenize(self.full_text)
 
     def is_attack(self, lexicon):
         attack = False

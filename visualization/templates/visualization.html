@@ -1,8 +1,31 @@
 <html>
-  <head>
-    <title>Visualizacion</title>
-  </head>
-  <body>
-      <h1>tweets</h1>
-  </body>
+    <head>
+        <title>Visualizacion</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/visualization.css') }}">
+    </head>
+    <body style="background: #ebebeb">
+        <div class="container">
+            <div class="post">
+                <div>
+                    <span>
+                        {{ post.full_text }}
+                    </span>
+                </div>
+                <div>
+                    <span>
+                        {{ post.created_at }}
+                    </span>
+                </div>
+            </div>
+            <div class="replies">
+                <ul>
+                    {% for reply in post.replies %}
+                        <li>
+                            <a>{{ reply.texto }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </body>
 </html>
