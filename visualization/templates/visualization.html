@@ -5,26 +5,49 @@
     </head>
     <body style="background: #ebebeb">
         <div class="container">
-            <div class="post">
-                <div>
-                    <span>
+            <div class="content">
+                <div class="tweet border">
+                    <span class="tweet-owner">Lucas de Francesca</span>
+                    <span class="tweet-title">
                         {{ post.full_text }}
                     </span>
+                    <span class="tweet-date"> {{ post.created_at }}</span>
                 </div>
-                <div>
-                    <span>
-                        {{ post.created_at }}
-                    </span>
-                </div>
-            </div>
-            <div class="replies">
-                <ul>
-                    {% for reply in post.replies %}
-                        <li>
-                            <a>{{ reply.texto }}</a>
-                        </li>
+                <div class="replies">
+                {% for reply in post.replies %}
+                    <div class="reply-content">
+                        <div class="tweet reply border">
+                            <div class="reply-info">
+                                <span class="tweet-owner">Lucas de Francesca</span>
+                                {% if reply.stance %}
+                                    <p><span class="attack"> {{ reply.stance }}</span></p>
+                                <!-- if not attack 
+                                <p><span class="support">Support</span></p>
+                                -->
+                                {% endif %}
+                            </div>
+                            <span>{{ reply.full_text }}</span>
+                            <span class="tweet-date">{{ reply.created_at }}</span>
+                        </div>
+
+                        <!-- if sub reply
+                            for reply in sub_reply
+                            <div class="tweet reply border" style="padding-left: 50px">
+                                <div class="reply-info">
+                                    <span class="tweet-owner">Joaquin de Francesca</span>
+                                    if attack
+                                    <p><span class="attack">Attack</span></p>
+                                    else not attack 
+                                    <p><span class="support">Support</span></p>
+                                    
+                                </div>
+                                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a viverra metus, id pretium ligula. Cras porttitor molestie mattis. Fusce commodo vulputate lorem. Vivamus varius maximus velit, non vestibulum sapien tempor ut.</span>
+                                <span class="tweet-date">9:38 PM · Oct 28, 2019</span>
+                            </div>
+                        -->
+                    </div>
                     {% endfor %}
-                </ul>
+                </div>
             </div>
         </div>
     </body>

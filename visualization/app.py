@@ -2,6 +2,7 @@ import os
 import pickle
 from flask import Flask
 from flask import render_template
+from tweet import PostNew, Reply
 
 app = Flask(__name__)
 
