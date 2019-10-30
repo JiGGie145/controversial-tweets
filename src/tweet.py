@@ -6,9 +6,8 @@ class Tweet:
 
     # See
     # https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object
-
     def __init__(self, **kwargs):
-        self.replies = []
+        self.replies = None
         self.id_str = kwargs.get('id_str', None)
         self.full_text = kwargs.get('full_text', None)
         self.reply_count = kwargs.get('reply_count', 0)
@@ -21,20 +20,17 @@ class Tweet:
     def get_text(self):
         self.full_text = self.full_text[self.display_text_range[0]:]
 
-class PostNew(Tweet):
 
-    def get_threads(self):
-        threads = defaultdict(list)
-        for reply in self.replies:
-            if reply.in_reply_to_status_id_str != self.conversation_id_str:
-                threads[reply.in_reply_to_status_id_str].append(reply)
-        return threads
+class PostNew(Tweet):
 
     def is_controversial(self, lexicon):
         attacks = 0
         for reply in self.replies:
             if reply.is_attack(lexicon):
                 attacks += 1
+            if reply.replies:
+                for subreply in reply.replies:
+                    subreply.is_attack(lexicon)
         return attacks >= 2
 
     def replies_attack(self):
@@ -53,7 +49,7 @@ class Reply(Tweet):
         self.in_reply_to_status_id_str = kwargs.get('in_reply_to_status_id_str', None)
 
         self.tokenizer()
- 
+
     def set_stance(self, stance):
         # attack, or support
         self.stance = stance

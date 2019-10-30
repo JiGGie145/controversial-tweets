@@ -23,4 +23,8 @@ venv.bak/
 .spyproject
 
 # models word embedding
-model/
+/model
+
+# visual studio code
+.vscode/
+

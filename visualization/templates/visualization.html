@@ -29,22 +29,20 @@
                             <span>{{ reply.full_text }}</span>
                             <span class="tweet-date">{{ reply.created_at }}</span>
                         </div>
-
-                        <!-- if sub reply
-                            for reply in sub_reply
+                        {% if reply.replies %}
+                            {% for subreply in reply.replies %}
                             <div class="tweet reply border" style="padding-left: 50px">
                                 <div class="reply-info">
                                     <span class="tweet-owner">Joaquin de Francesca</span>
-                                    if attack
-                                    <p><span class="attack">Attack</span></p>
-                                    else not attack 
-                                    <p><span class="support">Support</span></p>
-                                    
+                                    {% if reply.stance %}
+                                        <p><span class="attack"> {{ reply.stance }}</span></p>
+                                    {% endif %}                                    
                                 </div>
-                                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a viverra metus, id pretium ligula. Cras porttitor molestie mattis. Fusce commodo vulputate lorem. Vivamus varius maximus velit, non vestibulum sapien tempor ut.</span>
-                                <span class="tweet-date">9:38 PM · Oct 28, 2019</span>
+                                <span>{{ subreply.full_text }}</span>
+                                <span class="tweet-date"> {{ subreply.created_at }} </span>
                             </div>
-                        -->
+                            {% endfor %}
+                        {% endif %}
                     </div>
                     {% endfor %}
                 </div>
