@@ -34,8 +34,8 @@
                             <div class="tweet reply border" style="padding-left: 50px">
                                 <div class="reply-info">
                                     <span class="tweet-owner">Joaquin de Francesca</span>
-                                    {% if reply.stance %}
-                                        <p><span class="attack"> {{ reply.stance }}</span></p>
+                                    {% if subreply.stance %}
+                                        <p><span class="attack"> {{ subreply.stance }}</span></p>
                                     {% endif %}                                    
                                 </div>
                                 <span>{{ subreply.full_text }}</span>
