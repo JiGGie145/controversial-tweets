@@ -2,11 +2,11 @@ import os
 import pickle
 from flask import Flask
 from flask import render_template
-from tweet import PostNew, Reply
+from tweet.tweet import Tweet
 
 app = Flask(__name__)
 
-ROOT_PICKLE = '../pickle/outputs'
+ROOT_PICKLE = '../pickle/outputs/'
 
 @app.route('/')
 def index():

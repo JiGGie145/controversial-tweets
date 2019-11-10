@@ -7,46 +7,32 @@
         <div class="container">
             <div class="content">
                 <div class="tweet border">
-                    <span class="tweet-owner">Lucas de Francesca</span>
-                    <span class="tweet-title">
-                        {{ post.full_text }}
-                    </span>
+                    <span class="tweet-owner">{{ post.screen_name }}</span>
+                    <span class="tweet-title">{{ post.full_text }}</span>
                     <span class="tweet-date"> {{ post.created_at }}</span>
                 </div>
                 <div class="replies">
-                {% for reply in post.replies %}
-                    <div class="reply-content">
-                        <div class="tweet reply border">
-                            <div class="reply-info">
-                                <span class="tweet-owner">Lucas de Francesca</span>
-                                {% if reply.stance %}
-                                    <p><span class="attack"> {{ reply.stance }}</span></p>
-                                <!-- if not attack 
-                                <p><span class="support">Support</span></p>
-                                -->
-                                {% endif %}
-                            </div>
-                            <span>{{ reply.full_text }}</span>
-                            <span class="tweet-date">{{ reply.created_at }}</span>
-                        </div>
-                        {% if reply.replies %}
-                            {% for subreply in reply.replies %}
-                            <div class="tweet reply border" style="padding-left: 50px">
+                    {% for reply in post.replies recursive %}
+                        <div class="reply-content">
+                            <div class="tweet reply border">
                                 <div class="reply-info">
-                                    <span class="tweet-owner">Joaquin de Francesca</span>
-                                    {% if subreply.stance %}
-                                        <p><span class="attack"> {{ subreply.stance }}</span></p>
-                                    {% endif %}                                    
+                                    <span class="tweet-owner">{{ reply.screen_name }}</span>
+                                    {% if reply.stance %}
+                                    <p><span class="attack"> {{ reply.stance }}</span></p>
+                                    {% endif %}
                                 </div>
-                                <span>{{ subreply.full_text }}</span>
-                                <span class="tweet-date"> {{ subreply.created_at }} </span>
+                                <span>{{ reply.full_text }}</span>
+                                <span class="tweet-date">{{ reply.created_at }}</span>
                             </div>
-                            {% endfor %}
-                        {% endif %}
-                    </div>
+                            {%- if reply.replies -%}
+                                <div class="tweet reply border" style="padding-left: 50px">
+                                    {{ loop(reply.replies )}}
+                                </div>
+                            {% endif %}
+                        </div>
                     {% endfor %}
-                </div>
-            </div>
-        </div>
+                 </div>
+             </div>
+         </div>
     </body>
 </html>
