@@ -6,7 +6,7 @@ from tweet.tweet import Tweet
 
 app = Flask(__name__)
 
-ROOT_PICKLE = '../pickle/outputs/'
+ROOT_PICKLE = '../pickle/'
 
 @app.route('/')
 def index():
