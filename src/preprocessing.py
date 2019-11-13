@@ -5,6 +5,7 @@ from tweet.tweet import Tweet
 
 ROOT_DATA = '../data/'
 
+
 def preprocessing(file):
     tweets = defaultdict()
     root = None
@@ -32,14 +33,15 @@ def preprocessing(file):
                                   )
     return tweets, root
 
+
 def tree_create(tweets, root):
     r = defaultdict(list)
-    
+
     for id_st, tweet in tweets.items():
         if tweet.in_reply_to_status_id_str:
             r[tweet.in_reply_to_status_id_str].append(tweet)
-    
+
     for k, v in r.items():
         tweets[k].replies = v
-    
+
     return tweets[root]
