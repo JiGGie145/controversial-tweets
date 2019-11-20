@@ -1,0 +1,7 @@
+gensim==3.8.0
+twarc==1.7.5
+Flask==1.1.1
+Jinja2==2.10.1
+requests==2.22.0
+jupyter==1.0.0
+nltk==3.4.5

@@ -8,10 +8,12 @@ app = Flask(__name__)
 
 ROOT_PICKLE = '../pickle/'
 
+
 @app.route('/')
 def index():
     pickles = os.listdir(ROOT_PICKLE)
     return render_template('index.html', pickles=pickles)
+
 
 @app.route('/visualization/<pkl>')
 def visualization(pkl):

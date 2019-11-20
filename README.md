@@ -16,7 +16,7 @@ Por ultimo y como tercer objetivo es visualizar el resultado obtenido.
   
 ### Arquitectura
 
-#![Alt text](./readme/arquitectura.svg)
+![Alt text](./readme/arquitectura.svg)
 
 #### Obtencion de Twets
 Para la recoleción de los tweets se utilizo la herramienta [Twarc](https://github.com/DocNow/twarc), la cual brinda facilidad para obtener tweets con su respectivas respuestas.
@@ -26,8 +26,7 @@ En el preprocesamiento al tweet se lo tranforma en texto en minuscula, y luego s
 Inicialmente los tweets son etiquetados como <span style="color:yellow">**neutral**</span>.
 
 #### Etiquetado
-
-Se definio la siguiente funcion tagged(tweets, root, lexicon, model, n) la cual tiene como objetivo etiquetar las respuestas y ampliar el vocabulario.
+Se definio la siguiente funcion ```tagged(tweets, root, lexicon, model, n)``` la cual tiene como objetivo etiquetar las respuestas y ampliar el vocabulario.
 Para la parte de ampliar se utilizaron words embeddings de un modelo ya pre-entrenado obtenido de SBWCE<sup>1</sup>, el cual vemos las palabras mas similares del modelos con respecto al *lexicon*.
 
 Un problema que surge con la primera aproximacion, es ¿Que *lexicon* definimos para caracterizar los tweets que estan a favor?, ya que es mas dificil determinar las palabras que tienden a ser utilizadas para un tweet que esta a favor de la opinion. Una solucion planteada fue hacer analisis de sentimiento utilizando [TextBlob](https://textblob.readthedocs.io/en/dev/), esta es una libreria para procesamiento del lenguaje de natural que tiene como caracterisitca la implementacion de analisis de sentimientos.
@@ -51,6 +50,25 @@ Se utilizo [flask](https://palletsprojects.com/p/flask/) usando un template imit
 Un problema principal que se presento en el procedimiento fue la recoleccion de tweet con sus respectivas respuesta, ya que la API de Twitter no posee esta funcionalidad. Una primera solucion fue scrappear Twitter, por ultimo se utilizo Twarc.
 
 Otro problema fue mencionado en la seccion de etiquetado, sobre el *lexicon* para tweets a favor.
+
+### Instalacion y uso
+
+
+Instalacion de requerimientos
+
+```pip install -r requirements.txt```
+
+Instalacion del paquete Tweet
+
+```pip install package/dist/tweet-0.1.tar.gz```
+
+Obtencion de tweets
+
+```twarc replies <id_tweet> --recursive > data/<file_name>.json```
+
+Visualización
+
+```cd visualization/ && flask run```
 
 ### Referencias
 1.[Cristian Cardellino: Spanish Billion Words Corpus and Embeddings (March 2016)]( https://crscardellino.github.io/SBWCE/).

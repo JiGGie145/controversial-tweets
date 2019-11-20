@@ -1,6 +1,11 @@
 from nltk.tokenize import TweetTokenizer
 from textblob import TextBlob
 
+# Stances
+NEU = 'neutral'
+SUP = 'support'
+ATK = 'attack'
+
 
 class Tweet:
     """
@@ -8,7 +13,7 @@ class Tweet:
     https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object
     """
     tknzr = TweetTokenizer()
-    
+
     def __init__(self, **kwargs):
         self.id_str = kwargs.get('id_str', None)
         self.full_text = kwargs.get('full_text', None)
@@ -16,29 +21,29 @@ class Tweet:
         self.screen_name = kwargs.get('screen_name', None)
         self.display_text_range = kwargs.get('display_text_range', None)
         self.in_reply_to_status_id_str = kwargs.get('in_reply_to_status_id_str', None)
-        
+
         self.tokens = None
-        self.stance = 'neutral'
+        self.stance = NEU
         self.replies = None
-        
+
         self.text()
         self.tokenizer()
-    
+
     def text(self):
         self.full_text = self.full_text[self.display_text_range[0]:].lower()
-    
+
     def tokenizer(self):
         self.tokens = self.tknzr.tokenize(self.full_text)
-    
+
     def set_stance(self, stance):
         # attack, or support
         self.stance = stance
-    
+
     def is_attack(self, lexicon):
         attack = False
         for token in self.tokens:
             if token in lexicon:
-                self.set_stance('attack')
+                self.set_stance(ATK)
                 attack = True
                 break
         return attack
@@ -48,12 +53,11 @@ class Tweet:
         try:
             eng = analysis.translate(to='en')
             if eng.sentiment.polarity > 0:
-                self.set_stance('support')
+                self.set_stance(SUP)
         except:
-              print ("El elemento no está presente")
-    
+            pass
+
     def is_controversial(self, lexicon):
-        # solo chequeo el segundo nivel
         attacks = 0
         for reply in self.replies:
             if reply.is_attack(lexicon):
