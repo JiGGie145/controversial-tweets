@@ -56,3 +56,19 @@ p {
     font-size: 12px;
     border: 0;
 }
+.support {
+    background:  #64cd50;
+    padding: 0 4px 0 4px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 12px;
+    border: 0;
+}
+.neutral {
+    background:  #fcd04a;
+    padding: 0 4px 0 4px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 12px;
+    border: 0;
+}

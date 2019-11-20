@@ -44,7 +44,7 @@ class Tweet:
         return attack
 
     def is_support(self):
-        analysis = TextBlob(line)
+        analysis = TextBlob(self.full_text)
         try:
             eng = analysis.translate(to='en')
             if eng.sentiment.polarity > 0:

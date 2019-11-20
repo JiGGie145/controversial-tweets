@@ -18,7 +18,7 @@
                                 <div class="reply-info">
                                     <span class="tweet-owner">{{ reply.screen_name }}</span>
                                     {% if reply.stance %}
-                                    <p><span class="attack"> {{ reply.stance }}</span></p>
+                                    <p><span class='{{ reply.stance }}'> {{ reply.stance }}</span></p>
                                     {% endif %}
                                 </div>
                                 <span>{{ reply.full_text }}</span>
