@@ -37,14 +37,14 @@ Un problema que surge con la primera aproximacion, es ¿Que *lexicon* definimos 
 Se utilizo [flask](https://palletsprojects.com/p/flask/) usando un template imitando la visualizacion de Twitter.
 
 ### Propuestas
+Una alternativa que se propuso para ampliar el vocabulario fue de usar el mismo vacabulario de los tweets, y comparandolo con un modelo de Words embeddings pre-entrenado con FastText de [francolq@famaf.unc.edu.ar](). 
+ 
+![](./readme/idea.png) 
 
-1- AGRANDO LEXICON A PARTIR DEL MODELO DE CRISTIAN
-
-2- CALCULO UN UMBRAL DEL MODELO DE CRISTIAN
-
-3- PARA CADA (PALABRAL, TOKENT) DEL LEXICON X TWEET, SI DISTANCIA(PALABRAL, TOKENT) > UMBRAL ENTONCES LEXICON + TOKENT 
+donde *u* denota al umbral elegido.
 
 ### Resultados
+
 
 ### Problemas
 Un problema principal que se presento en el procedimiento fue la recoleccion de tweet con sus respectivas respuesta, ya que la API de Twitter no posee esta funcionalidad. Una primera solucion fue scrappear Twitter, por ultimo se utilizo Twarc.
