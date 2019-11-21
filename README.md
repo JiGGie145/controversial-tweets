@@ -6,7 +6,7 @@ Dado un tweet queremos detectar si el mismo es controversial, es decir, el mismo
 ### Primera aproximación
 Uno de los primeros objetivos consiste en etiquetar las respuestas de un tweet dependiendo su opinion. Se definieron las siguientes etiquetas <span style="color:yellow">**neutral**</span> , <span style="color:red">**attack**</span> y <span style="color:green">**support**</span> el cual van a ser utilizadas para categorizar las distintas posturas.
 
-Para determinar la postura de un tweet se definio un vocabulario inicial el cual llamaremos *lexicon* este contendra palabras que posiblemente caractericen a las distintas posturas, es decir, *lexicon_attack* inicialmente  tendra las palabras **mentiroso** y **falso**.
+Para determinar la postura de un tweet se definio un vocabulario inicial el cual llamaremos *lexicon* este contendra palabras que posiblemente caractericen a las distintas posturas, es decir, *lexicon_attack* inicialmente  tendra las palabras **mentira** y **falso**.
 
 Luego para detectar que un tweet es controversial, observaremos si algunas de las repuestas tienen al menos una palabra del los *lexicons* definidos.
 
@@ -44,6 +44,34 @@ Una alternativa que se propuso para ampliar el vocabulario fue de usar el mismo 
 donde *u* denota al umbral elegido.
 
 ### Resultados
+Se definio un *lexicon esperado*
+
+['mentira', 'mentiroso', 'falso', 'mentirosa', 'verdad', 'verdadero', 'engañoso', 'mentir', 'engaño', 'fraude', 'mentiras']
+
+El cual sirve para comparar las distintas formas de ampliar el vocabulario.
+
+Dado ```lexicon_attack = ['falso', 'mentira']```
+
+Se obtuvieron los siguientes resultados de la ampliacion del vocabulario mediante la primera aproximacion:
+
+**Primera ampliacion**
+
+['falso', 'mentira', 'falsa', 'mentirilla', 'verdad', 'fraudulencia', 'engaño', 'infundio', 'mentiras', 'andrómina', 'patraña', 'encubriéndola']
+
+**Segunda ampliacion**
+
+['falso', 'mentira', 'falsa', 'mentirilla', 'verdad', 'fraudulencia', 'engaño', 'infundio', 'mentiras', 'andrómina', 'patraña', 'encubriéndola', 'embaucamiento', 'inauténtica', 'mangancia', 'autocondena', 'extrañándose', 'tacharme', 'trola', 'fechorias', 'trocaré', 'desverguenza']
+
+Se obtuvieron los siguientes resultados de la ampliacion del vocabulario mediante la idea propuesta:
+
+**Primera ampliacion**
+
+['falso', 'mentira', 'verdad', 'realmente', 'mentiroso', 'mentiiira', 'miente', 'mentir']
+
+ **Segunda ampliacion**
+
+['falso', 'mentira', 'verdad', 'realmente', 'mentiroso', 'mentiiira', 'miente', 'mentir', 'mienten', 'mentirosos', 'caradura', 'mientan', 'mitomanos', 'hipocritas', 'digan', 'macristas', 'ladrones', 'buitres', 'k', 'delincuentes', 'basuras', 'chorros', 'macrisis', 'caraduras', 'gobierno', 'offshore', 'intereses', 'fmi', 'estafadores', 'ineptos', 'sarta', 'justicia', 'irresponsables', 'cristina', 'aumento', 'macri', 'kk', 'presidente', 'mauricio', 'robaron', 'kristina', 'crisis', 'presos', 'jueces', 'militantes', 'afanan', 'soretes', 'mafiosos', 'bcra', 'oposición', 'legislatura', 'manga', 'ignorantes', 'bonos', 'idiotas', 'deuda', 'estafador', 'presi', 'ministerios', 'macrismo', 'verguenzas', 'peronista', 'justicialista', 'vice', 'peronia', 'presa', 'afanó', 'negador', 'inflación', 'populistas', 'gobiernos', 'cepo', 'gastos', 'expertos', 'vencimientos', 'dice', 'cfk', 'caterva', 'afanar', 'dijo', 'creen', 'mafioso', 'fracasados', 'indec']
+
 
 
 ### Problemas
@@ -52,8 +80,6 @@ Un problema principal que se presento en el procedimiento fue la recoleccion de 
 Otro problema fue mencionado en la seccion de etiquetado, sobre el *lexicon* para tweets a favor.
 
 ### Instalacion y uso
-
-
 Instalacion de requerimientos
 
 ```pip install -r requirements.txt```
