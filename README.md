@@ -16,7 +16,7 @@ Por último y como tercer objetivo, se visualizará el resultado obtenido.
  
 ### Pipeline
 
-Para el desarrollo del proyecto se definió el siguiente procedimiento, que será explicado con mayor detalles.
+Para el desarrollo del proyecto se definió el siguiente procedimiento, que será explicado con mayor detalles en la siguientes secciones.
 
 ![Alt text](./readme/arquitectura.svg)
 
@@ -45,9 +45,9 @@ Se utilizo el framework web [flask](https://palletsprojects.com/p/flask/) para d
 ### Ampliación del vocabulario
 
 Surgieron varias alternativas con respecto a la primera aproximación a la hora de ampliar el vocabulario.
-Agrandar el vocabulario usando analisis de sentimiento, a cada lexicon se le sumaran palabras dependiendo como el modelo de sentiment haya clasificados los tweets, es decir, si determinado tweet fue etiquedado con cierta polaridad entonces al lexicon categorizado con esa polaridad se le agregan palabras de ese tweet.
+Agrandar el vocabulario usando análisis de sentimiento, a cada lexicon se le agregaran palabras dependiendo como el modelo de sentiment haya clasificados los tweets, es decir, si determinado tweet fue etiquetado con cierta polaridad entonces al lexicón categorizado con esa polaridad se le agregan palabras de ese tweet.
 
-Una alternativa que se propuso para ampliar el vocabulario fue usar el mismo vocabulario de los tweets(dataset), es decir, comparar cada token del tweet con las palabras del *lexicon* usando un modelo pre-entrenado con FastText obtenido del TASS 2018<sup>3</sup> para determinar la similitud de las palabras, por lo tanto si el par es similar usando como métrica un umbral determinado, el token será agregado al *lexicon*.
+Otra alternativa propuesta para ampliar el vocabulario fue usar el mismo vocabulario de los tweets(dataset), es decir, comparar cada token del tweet con las palabras del *lexicon* usando un modelo pre-entrenado con FastText obtenido del TASS 2018<sup>3</sup> para determinar la similitud de las palabras, por lo tanto si el par es similar usando como métrica un umbral determinado, el token será agregado al *lexicon*.
  
 ![](./readme/idea.png)
 
@@ -55,7 +55,7 @@ donde *u* denota al umbral elegido.
 
 ### Resultados y comparaciones
 
-El siguiente cuadro muestra un ejemplo de como el procedimiento fue cambiando el etiquetado de un tweet en particular a lo largo de dos iteraciones(ampliaciones del lexicon) utilizando la primera aproximación.
+El siguiente cuadro muestra un ejemplo de cómo el procedimiento fue cambiando el etiquetado de un tweet en particular a lo largo de dos iteraciones(ampliaciones del lexicón) utilizando la primera aproximación.
 
 Tweet de referencia:
 > **perfilcom** andrés ibarra comparó la herencia que deja el gobierno con la del kirchnerismo el vicejefe de gabinete dio una conferencia de prensa y aseguró que dejan "10 mil millones de dólares de reservas, contra cero" que había en 2015.
@@ -64,13 +64,13 @@ Respuesta:
 
 > **piscu63** ibarra es un tipo serio no puede decir esto! tenemos que pagar intereses en el corto plazo que antes no, y está la deuda con el fmi : como te queda la cuenta neta? digamos la verdad total no a medias
  
-| Iteracion | Postura |
+| Iteración | Postura |
 | --- | --- |
 | 0 | neutral |
 | 1 | attack |
 | 2 | attack |
 
-Se exploraron dos formas de ampliación de vocabulario explicadas anteriormente siendo la primera aproximación y usando el mismo vocabulario de los tweets.
+Se exploraron dos formas de ampliación de vocabulario explicadas anteriormente siendo una la primera aproximación y la segunda usando el mismo vocabulario de los tweets.
  
 Se definió un *lexicon esperado*
 
@@ -88,7 +88,7 @@ Se obtuvieron los siguientes resultados de la ampliación del vocabulario median
 | 1 | falso mentira falsa mentirilla verdad fraudulencia engaño infundio mentiras andrómina patraña encubriéndola | falso mentira verdad realmente mentiroso mentiiira miente mentir |
 | 2 | falso mentira falsa mentirilla verdad fraudulencia engaño infundio mentiras andrómina patraña encubriéndola embaucamiento inauténtica mangancia autocondena extrañándose tacharme trola fechorias trocaré desverguenza | falso mentira verdad realmente mentiroso mentiiira miente mentir mienten mentirosos caradura mientan mitomanos hipocritas digan macristas ladrones buitres k delincuentes basuras chorros macrisis caraduras gobierno offshore intereses fmi estafadores ineptos sarta justicia irresponsables cristina aumento macri kk presidente mauricio robaron kristina crisis presos jueces militantes afanan soretes mafiosos bcra oposición legislatura manga ignorantes bonos idiotas deuda estafador presi ministerios macrismo verguenzas peronista justicialista vice peronia presa afanó  |
 
-Como podemos observar el vocabulario en la segunda iteración de la propuesta alternativa es más extenso con respecto a la segunda iteración de la primera aproximación. Analizando las palabras agregadas, se obtuvo más conformidad con la primera aproximación, ya que en la segunda iteración del modelo FastText en el vocabulario de ataque se encuentran nombres propios como "cristina", "maurico" etc lo cual son irrelevantes a la hora de decir si el tweet está en acuerdo o desacuerdo con la opinon.
+Como podemos observar el vocabulario en la segunda iteración de la propuesta alternativa es más extenso con respecto a la segunda iteración de la primera aproximación. Analizando las palabras agregadas, se obtuvo más conformidad con la primera aproximación, ya que en la segunda iteración del modelo FastText en el vocabulario de ataque se encuentran nombres propios como "cristina", "mauricio" etc lo cual son irrelevantes a la hora de decir si el tweet está en acuerdo o desacuerdo con la opinión.
 
 ### Problemas
 Un problema principal que se presentó en el procedimiento fue la recolección de los tweet con sus respectivas respuestas, ya que la API de Twitter no posee esta funcionalidad. Una primera solución fue scrappear Twitter, por último se utilizó Twarc.
@@ -97,7 +97,15 @@ Otro problema fue mencionado en la sección de etiquetado, sobre el *lexicon* pa
 
 ### Resumen, Conclusiones y Trabajo futuro
 
+Se exploraron varias formas de ampliar el vocabulario tratando de abarcar el problema, las mismas aproximaron de cierto modo una solución simple, tomando como mayor conformidad la primera aproximación.
 
+El procedimiento se asumió que el etiquetado es monotónico(no cancelable), es decir, una vez etiquetado el tweet con determinado stance este no va cambiar a través de las iteraciones, una modificación podría ser que no sea monotónico.
+
+Como una alternativa de desarrollo del proyecto podría ser aplicar un clasificador no basado en lexicon <sub>2<sub>
+
+### Screenshot
+
+![](./readme/screenshot.png)
 
 ### Instalación y uso
 Instalación de requerimientos
@@ -122,3 +130,5 @@ Visualización
 2.[Analyzing the Semantic Types of Claims and Premises in an Online Persuasive Forum, Christopher  and Musi, Elena  and Hwang, Alyssa  and Muresan, Smaranda  and McKeown, Kathy (2017)](https://www.aclweb.org/anthology/W17-5102)
 
 3.[Atalaya at TASS 2018: Sentiment Analysis with Tweet Embeddings and Data Augmentation, Franco M. Luque and Juan Manuel Pérez](https://dblp.org/rec/html/conf/sepln/LuqueP18)
+
+
